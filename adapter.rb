@@ -1,33 +1,50 @@
 require 'open-uri'
 require 'nokogiri'
 require 'json'
+require 'net/http'
+require 'openssl'
 
 class API
 
-    JSON_URL = ""
-    
     def fetch_json_data
-        uri = URI.parse(URL)
-        response = Net::HTTP.get_response(uri)
-        JSON.parse(response.body)
+    url = URI("https://realtor.p.rapidapi.com/properties/v2/list-for-sale?sort=relevance&city=New%20York%20City&limit=5&offset=0&state_code=NY")
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    request = Net::HTTP::Get.new(url)
+    request["x-rapidapi-host"] = 'realtor.p.rapidapi.com'
+    request["x-rapidapi-key"] = '516098652amsh5a2a2f6407ccd2cp146c13jsn5b3144593843'
+
+    response = http.request(request)
+
+    JSON.parse(response.read_body) 
     end
+
+    def listings
+    fetch_json_data["properties"]
+    end
+    
 
     def create_listings
-        # invoke the fetch_json_data method
-        # use the returned data to instantiate new Listings
+        listings.each_with_index do |property, i| 
+            binding.pry
+            Listing.new(property["address"]["city"], property["price"])
+        end
     end
 
 
 end
 
-class Scraper
+# class Scraper
 
-    HTML_URL = ""
+#     HTML_URL = ""
 
-    def scrape_html_data
-        html = open(URL)
-        doc = Nokogiri::HTML(html)
-        # use Nokogiri's #css method to return data
-        # instantiate Listings
-    end
-end
+#     def scrape_html_data
+#         html = open(URL)
+#         doc = Nokogiri::HTML(html)
+#         # use Nokogiri's #css method to return data
+#         # instantiate Listings
+#     end
+# end

@@ -2,9 +2,15 @@
 
 ## Part 1: Conceptual questions
 1. What are the common classes of errors we see raised in Ruby?
+    NoMethod, Syntax, StandardError, ArgumentError, etc.
 2. What is metaprogramming?
+    Code that writes code (Ex. attr_accessor or send)
 3. What are some ways to fetch data from remote sources in Ruby?
+    HTTP request through open-uri
+    API = JSON
+    Webpage = HTML
 4. What is a CLI?
+    command line interface - user interactions happen via the terminal
 
 ## Part 2: Coding Challenge - Adding Features
 * Your friend asked you to build them a real estate app because they're really tired of using Zillow. After doing some domain modeling, you have built a `Listing` and `Agent` class and wired up relationships between these classes. Next, you will enhance the application in one (or more) of the following ways:
