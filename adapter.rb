@@ -15,7 +15,7 @@ class API
 
     request = Net::HTTP::Get.new(url)
     request["x-rapidapi-host"] = 'realtor.p.rapidapi.com'
-    request["x-rapidapi-key"] = '516098652amsh5a2a2f6407ccd2cp146c13jsn5b3144593843'
+    request["x-rapidapi-key"] = ''
 
     response = http.request(request)
 
